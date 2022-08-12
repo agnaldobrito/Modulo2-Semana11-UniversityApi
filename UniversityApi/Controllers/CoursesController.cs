@@ -31,7 +31,7 @@ namespace UniversityApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<Course>>> Get()
         {
             try
             {
@@ -62,7 +62,7 @@ namespace UniversityApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<Course>> GetById(int id)
         {
             try
             {
@@ -107,7 +107,7 @@ namespace UniversityApi.Controllers
             }
             catch (Exception ex)
             {
-                _logger.LogError(ex, $"Controller: {nameof(CoursesController)} - Endpoint: {nameof(GetById)}");
+                _logger.LogError(ex, $"Controller: {nameof(CoursesController)} - Endpoint: {nameof(Post)}");
                 return StatusCode(500);
             }
         }
@@ -169,7 +169,7 @@ namespace UniversityApi.Controllers
 
                 if (course is null) return NotFound();
 
-                _logger.LogInformation($"Controller: {nameof(CoursesController)} - Endpoint: {nameof(GetById)}");
+                _logger.LogInformation($"Controller: {nameof(CoursesController)} - Endpoint: {nameof(Delete)}");
 
                 _universityContext.Courses.Remove(course);
                 await _universityContext.SaveChangesAsync();
