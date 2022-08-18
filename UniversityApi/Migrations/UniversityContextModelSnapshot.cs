@@ -242,6 +242,17 @@ namespace UniversityApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Aluno");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Birthday = new DateTime(1999, 11, 12, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Cpf = "123.321.121-50",
+                            Email = "student1@email.com",
+                            Name = "student1",
+                            Phone = "9876-5432"
+                        });
                 });
 
             modelBuilder.Entity("UniversityApi.Models.Class", b =>
