@@ -32,7 +32,7 @@ namespace UniversityApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> Get()
+        public async Task<ActionResult<IEnumerable<Instructor>>> Get()
         {
             try
             {
@@ -63,7 +63,7 @@ namespace UniversityApi.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<ActionResult<Instructor>> GetById(int id)
         {
             try
             {
@@ -86,7 +86,7 @@ namespace UniversityApi.Controllers
         /// <summary>
         /// Adiciona um instrutor no banco de dados
         /// </summary>
-        /// <param name="infoStudent">Informações do instrutor</param>
+        /// <param name="infoInstructor">Informações do instrutor</param>
         /// <returns>Retorna resposta se o instrutor foi inserido com sucesso ou não no banco de dados</returns>
         /// <response code="201">O instrutor foi inserido com sucesso</response>
         /// <response code="500">Ocorreu erro durante a execução</response>
@@ -169,7 +169,7 @@ namespace UniversityApi.Controllers
 
                 if (instructor is null) return NotFound();
 
-                _logger.LogInformation($"Controller: {nameof(InstructorsController)} - Endpoint: {nameof(GetById)}");
+                _logger.LogInformation($"Controller: {nameof(InstructorsController)} - Endpoint: {nameof(Delete)}");
 
                 _universityContext.Instructors.Remove(instructor);
                 await _universityContext.SaveChangesAsync();

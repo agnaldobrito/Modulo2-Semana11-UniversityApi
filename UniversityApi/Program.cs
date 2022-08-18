@@ -13,7 +13,7 @@ builder.Services.AddSwaggerGen();
 
 builder.Services
     .AddDbContext<UniversityContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("UniversityApiConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("TesteSeedConnection")));
 
 
 var app = builder.Build();
