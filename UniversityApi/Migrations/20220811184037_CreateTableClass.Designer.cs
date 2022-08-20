@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using UniversityApi.Context;
 
@@ -11,9 +12,10 @@ using UniversityApi.Context;
 namespace UniversityApi.Migrations
 {
     [DbContext(typeof(UniversityContext))]
-    partial class UniversityContextModelSnapshot : ModelSnapshot
+    [Migration("20220811184037_CreateTableClass")]
+    partial class CreateTableClass
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -90,35 +92,6 @@ namespace UniversityApi.Migrations
                     b.ToTable("Curso");
                 });
 
-            modelBuilder.Entity("UniversityApi.Models.Grade", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("IdGradePeriod")
-                        .HasColumnType("int")
-                        .HasColumnName("IdNotaPeriodo");
-
-                    b.Property<int>("IdRegistration")
-                        .HasColumnType("int")
-                        .HasColumnName("IdMatricula");
-
-                    b.Property<decimal>("Value")
-                        .HasColumnType("decimal(18,2)")
-                        .HasColumnName("Nota");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdGradePeriod");
-
-                    b.HasIndex("IdRegistration");
-
-                    b.ToTable("Nota");
-                });
-
             modelBuilder.Entity("UniversityApi.Models.GradePeriod", b =>
                 {
                     b.Property<int>("Id")
@@ -174,35 +147,6 @@ namespace UniversityApi.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Instrutor");
-                });
-
-            modelBuilder.Entity("UniversityApi.Models.Registration", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"), 1L, 1);
-
-                    b.Property<int>("IdClass")
-                        .HasColumnType("int")
-                        .HasColumnName("IdTurma");
-
-                    b.Property<int>("IdStudent")
-                        .HasColumnType("int")
-                        .HasColumnName("IdAluno");
-
-                    b.Property<DateTime?>("RegistrationDate")
-                        .HasColumnType("datetime2")
-                        .HasColumnName("DataMatricula");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IdClass");
-
-                    b.HasIndex("IdStudent");
-
-                    b.ToTable("Matricula");
                 });
 
             modelBuilder.Entity("UniversityApi.Models.Student", b =>
@@ -261,44 +205,6 @@ namespace UniversityApi.Migrations
                     b.Navigation("Course");
 
                     b.Navigation("Instructor");
-                });
-
-            modelBuilder.Entity("UniversityApi.Models.Grade", b =>
-                {
-                    b.HasOne("UniversityApi.Models.GradePeriod", "GradePeriod")
-                        .WithMany()
-                        .HasForeignKey("IdGradePeriod")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UniversityApi.Models.Registration", "Registration")
-                        .WithMany()
-                        .HasForeignKey("IdRegistration")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("GradePeriod");
-
-                    b.Navigation("Registration");
-                });
-
-            modelBuilder.Entity("UniversityApi.Models.Registration", b =>
-                {
-                    b.HasOne("UniversityApi.Models.Class", "Class")
-                        .WithMany()
-                        .HasForeignKey("IdClass")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("UniversityApi.Models.Student", "Student")
-                        .WithMany()
-                        .HasForeignKey("IdStudent")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Class");
-
-                    b.Navigation("Student");
                 });
 #pragma warning restore 612, 618
         }
